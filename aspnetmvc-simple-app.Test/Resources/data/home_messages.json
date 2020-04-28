@@ -1,0 +1,16 @@
+[
+        {
+                "id": 1,
+                "title": "Title 1",
+                "text": "<p>This is a description for id 1.</p>",
+                "imagesrc": "https://picsum.photos/400/200",
+                "link": "https://magicianred.altervista.org/gigs/php-base-info-site/"
+        },
+        {
+                "id": 2,
+                "title": "Title 2",
+                "text": "<p>This is a description per id 2</p>",
+                "imagesrc": "https://picsum.photos/400/200",
+                "link": "https://magicianred.altervista.org/gigs/react-base-info-site/"
+        }
+]

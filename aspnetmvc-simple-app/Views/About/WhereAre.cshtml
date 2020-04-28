@@ -1,0 +1,86 @@
+﻿@using aspnetmvc_simple_app.PresentationModels
+@model WhereAreModel
+@{
+	ViewBag.Title = "WhereAre - About";
+}
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="display-4">Where Are Page</h1>
+		<p class="lead">This is the where are page.</p>
+		<p>
+			<a href="@Url.Action("Index", "About")" class="btn-default btn-sm btn btn-primary">
+				Back to About Us...
+			</a>
+		</p>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<div id="content_main" class="container">
+				@Html.Raw(Model.MdHtml)
+			</div>
+			<div id="where_are_list" class="container">
+				<ul class="list-group">
+					@foreach (var place in Model.Places)
+					{
+						<li class="list-group-item">
+							@place.Title
+							<span class="badge badge-secondary badge-list-group">@place.Country</span>
+						</li>
+					}
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="container">
+				<div id="accordion">
+					@foreach (var place in Model.Places)
+					{
+						var addClassCollapse = place.Id != 0 ? " collapsed " : "";
+						var addClassShow = place.Id != 1 ? " collapsed " : "";
+						<div class="card">
+							<div class="card-header" id="heading@place.Id">
+								<button class="btn btn-link @addClassCollapse" data-toggle="collapse" data-target="#collapse@(place.Id)" aria-expanded="true" aria-controls="collapse@(place.Id)">
+									@place.Title
+								</button>
+								<span class="badge badge-secondary badge-list-group">@place.Country</span>
+							</div>
+							<div id="collapse@(place.Id)" class="collapse @addClassShow" aria-labelledby="heading@(place.Id)" data-parent="#accordion">
+								<div class="card-body">
+									@place.Description
+									<br /><br />
+									<dl>
+										<dt>Phone</dt>
+										<dd>@place.Phone</dd>
+										<dt>Address</dt>
+										<dd>@place.Address</dd>
+										<dt>Country</dt>
+										<dd>@place.Country</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@** For demonstration purpose **@
+<div class="file_contents container">
+	<span>file: /data/pages/whereare.md</span>
+	<p class="lead">
+		(the data in the where page)
+	</p>
+	<code><pre>@Model.MdText</pre></code>
+</div>
+<div class="file_contents container">
+	<span>file: /data/places.json</span>
+	<p class="lead">
+		(the data whom represent places)
+	</p>
+	<code><pre>@Model.JsonString</pre></code>
+</div>
+@** END For demonstration purpose **@
+

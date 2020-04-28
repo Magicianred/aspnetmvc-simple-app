@@ -1,0 +1,67 @@
+﻿@{ 
+	string appName = System.Web.Configuration.WebConfigurationManager.AppSettings["appName"];
+	string appVersion = System.Web.Configuration.WebConfigurationManager.AppSettings["appVersion"];
+	string publicUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["publicUrl"];
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="Scotch">
+
+	<title>@ViewBag.appName</title>
+	<base href="@ViewBag.publicUrl">
+
+	<link rel="stylesheet" href="~/Content/build/index.css" />
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="layout-jumbotron" class="layout container-fluid">
+		<header>
+			<nav role="navigation" class="navbar navbar-expand-md navbar-dark bg-dark">
+				<a href="" class="navbar-brand">
+					<img src="~/Content/images/logo.svg" width="40" height="40" />
+					@appName
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse" id="navbarNav">
+					<div class="mr-auto navbar-nav">
+						<a href="@Url.Action("Index", "Home")" data-rb-event-key="" class="nav-link">Home</a>
+						<a href="@Url.Action("Index", "About")" data-rb-event-key="about" class="nav-link">About Us</a>
+						<a href="@Url.Action("Contact", "Home")" data-rb-event-key="contact" class="nav-link">Contact Us</a>
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<div role="main" class="page">
+			@RenderBody()
+		</div>
+
+		<footer id="footer" class="bg-dark">
+			<div class="container-fluid">
+				<p>
+					This is the footer of <b><a href="https://github.com/Magicianred/aspnetmvc-simple-app">@appName</a></b>
+					(version <i>@appVersion</i>)
+				</p>
+				<p>
+					Realized by <a rel="noopener noreferrer" target="_blank" href="https://magicianred.github.io/">magicianred</a>
+				</p>
+				<div>Logo Icons made by <a href="https://www.iconfinder.com/samatodedara" title="Samat Odedara">Samat Odedara</a>
+					from <a href="https://www.iconfinder.com/" title="Iconfinder">Iconfinder</a></div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>

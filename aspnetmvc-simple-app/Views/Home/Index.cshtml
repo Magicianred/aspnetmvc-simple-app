@@ -1,0 +1,54 @@
+﻿@using aspnetmvc_simple_app.PresentationModels
+@model IndexModel
+@{
+	ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="display-4">Welcome to aspnetmvc-simple-app!</h1>
+		<p class="lead">
+			This is a Demo webapp meant to show you this digital product.
+			You can find <a href="https://github.com/Magicianred/aspnetmvc-simple-app">
+				the repo in GitHub
+			</a>
+		</p>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		@{ 
+			int index = 0;
+			foreach (var homeMessage in Model.HomeMessages) {
+				<div class="col-md-4">
+					<h3>@homeMessage.Title</h3>
+					<p>@Html.Raw(homeMessage.Text)</p>
+					<p>
+						<a target="_blank" rel="noopener noreferer" href="@homeMessage.Link" class="btn-default btn-lg btn btn-primary">
+							More...</a>
+					</p>
+				</div>
+				index++;
+			}
+		}
+	</div>
+</div>
+<div id="content_main" class="container">
+	@** MARKDOWN FILE CONTENT  **@
+	@Html.Raw(Model.MdHtml)
+</div>
+@** For demonstration purpose **@
+<div class="file_contents container">
+	<span>file: ~/Content/data/pages/home.md</span>
+	<p class="lead">
+		(the data in the home page)
+	</p>
+	<code><pre>@Model.MdText</pre></code>
+</div>
+<div class="file_contents container">
+	<span>file: ~/Content/data/home_messages.json</span>
+	<p class="lead">
+		(the data present in jumbotron)
+	</p>
+	<code><pre>@Model.JsonString</pre></code>
+</div>
+@** END For demonstration purpose **@

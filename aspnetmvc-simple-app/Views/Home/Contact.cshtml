@@ -1,0 +1,166 @@
+﻿@using aspnetmvc_simple_app.PresentationModels
+@model ContactModel
+@{
+	ViewBag.Title = "Contact";
+}
+<div class="jumbotron">
+	<div class="container">
+		<h1 class="display-4">Contact Page</h1>
+		<p class="lead">This is the contact page</p>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<form id="formContact" method="POST" action="logics/send.php" novalidate>
+				<div class="row">
+					<div class="col-md-12">
+						<h4>Please compile the form</h4>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="firstName">First Name</label>
+							<input type="text" class="form-control is-invalid" id="firstName" name="firstName" aria-describedby="firstNameHelp" placeholder="First Name">
+							<small id="firstNameHelp" class="form-text text-muted"><span class="badge badge-danger">Field is required</span></small>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="lastName">Last Name</label>
+						<input type="text" class="form-control is-invalid" id="lastName" name="lastName" aria-describedby="lastNameHelp" placeholder="Last Name">
+						<small id="lastNameHelp" class="form-text text-muted"><span class="badge badge-danger">Field is required</span></small>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="email">Email address</label>
+							<input type="email" class="form-control is-invalid" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+							<small id="emailHelp" class="form-text text-muted"><span class="badge badge-danger">Field is empty or invalid</span></small>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="message">Say something to us</label>
+							<textarea class="form-control is-invalid" row="3" id="message" name="message" aria-describedby="messageHelp"></textarea>
+							<small id="messageHelp" class="form-text text-muted"><span class="badge badge-danger">Field is required</span></small>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-check">
+							<input class="form-check-input is-invalid" type="checkbox" id="privacy" name="privacy[]" value="ok" aria-describedby="privacyHelp">
+							<label class="form-check-label" for="privacy">
+								Accept your privacy condition
+							</label>
+							<small id="privacyHelp" class="form-text text-muted"><span class="badge badge-danger">Field is required</span></small>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button id="btnSubmit" type="submit" class="btn btn-primary">Send message</button>
+						<br />
+						<small id="submitHelp" class="form-text text-muted invisible"><span class="badge badge-danger">Check invalid fields before submit</span></small>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-6">
+			<div class="jumbotron">
+				<div class="container">
+					<p>
+						<b>This form do not send any emails, this is only for a test purpose.</b>
+						<br /> You can try to compile it and click on button send to see the next page.
+					</p>
+					<div id="content_main">
+						@Html.Raw(Model.MdHtml)
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="file_contents container">
+	<span>file: /data/pages/contact.md</span>
+	<p class="lead">
+		(the data in the contact page)
+	</p>
+	<code><pre>@Model.MdText</pre></code>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('input#firstName').blur(function () {
+			if (!$(this).val()) {
+				$(this).removeClass('is-valid').addClass('is-invalid');
+				$('#firstNameHelp span').addClass('badge-danger').removeClass('badge-info').text('Field is empty or invalid');
+			} else {
+				$(this).removeClass('is-invalid').addClass('is-valid');
+				$('#firstNameHelp span').removeClass('badge-danger').addClass('badge-info').text('Field valid');
+			}
+		});
+		$('input#lastName').blur(function () {
+			if (!$(this).val()) {
+				$(this).removeClass('is-valid').addClass('is-invalid');
+				$('#lastNameHelp span').addClass('badge-danger').removeClass('badge-info').text('Field is empty or invalid');
+			} else {
+				$(this).removeClass('is-invalid').addClass('is-valid');
+				$('#lastNameHelp span').removeClass('badge-danger').addClass('badge-info').text('Field valid');
+			}
+		});
+		$('input#email').blur(function () {
+			if (!$(this).val() || !isEmail($(this).val())) {
+				$(this).removeClass('is-valid').addClass('is-invalid');
+				$('#emailHelp span').addClass('badge-danger').removeClass('badge-info').text('Field is empty or invalid');
+			} else {
+				$(this).removeClass('is-invalid').addClass('is-valid');
+				$('#emailHelp span').removeClass('badge-danger').addClass('badge-info').text('Field valid');
+			}
+		});
+		$('textarea#message').blur(function () {
+			if (!$(this).val()) {
+				$(this).removeClass('is-valid').addClass('is-invalid');
+				$('#messageHelp span').addClass('badge-danger').removeClass('badge-info').text('Field is empty or invalid');
+			} else {
+				$(this).removeClass('is-invalid').addClass('is-valid');
+				$('#messageHelp span').removeClass('badge-danger').addClass('badge-info').text('Field valid');
+			}
+		});
+		$('input#privacy').blur(function () {
+			if (!$(this).is(":checked")) {
+				$(this).removeClass('is-valid').addClass('is-invalid');
+				$('#privacyHelp span').addClass('badge-danger').removeClass('badge-info').text('Field is empty or invalid');
+			} else {
+				$(this).removeClass('is-invalid').addClass('is-valid');
+				$('#privacyHelp span').removeClass('badge-danger').addClass('badge-info').text('Field valid');
+			}
+		});
+		$('input#privacy').blur(function () {
+			if (!$(this).is(":checked")) {
+				$(this).removeClass('is-valid').addClass('is-invalid');
+				$('#privacyHelp span').addClass('badge-danger').removeClass('badge-info').text('Field is empty or invalid');
+			} else {
+				$(this).removeClass('is-invalid').addClass('is-valid');
+				$('#privacyHelp span').removeClass('badge-danger').addClass('badge-info').text('Field valid');
+			}
+		});
+		$('#formContact').submit(function (event) {
+			var allInvalidElements = $("form .is-invalid");
+			if (allInvalidElements.length > 0) {
+				event.preventDefault();
+				$('#submitHelp').removeClass('invisible');
+			} else {
+				$('#submitHelp').addClass('invisible');
+				$('#btnSubmit').prop('disabled', true);
+			}
+		});
+	});
+	function isEmail(email) {
+		var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		return regex.test(email);
+	}
+</script>
